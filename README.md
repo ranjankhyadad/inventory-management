@@ -1,0 +1,1 @@
+This executable application is developed using tkinter.
