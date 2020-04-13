@@ -1,27 +1,29 @@
 from tkinter import *
-import backend
+from backend import DB
+
+db = DB("inventory.db")
 
 def view_items():
     listbox.delete(0,END)
-    for row in backend.view():
+    for row in db.view():
         listbox.insert(END,row)
 
 def add_item():
-    backend.insert(commodity.get(), quantity.get(), price.get(), serial.get())
+    db.insert(commodity.get(), quantity.get(), price.get(), serial.get())
     listbox.delete(0,END)
-    listbox.insert(commodity.get(), quantity.get(), price.get(), serial.get())
+    listbox.insert(END,(commodity.get(), quantity.get(), price.get(), serial.get()))
 
 def update_item():
-    backend.update(selected_tuple[0], commodity.get(), quantity.get(), price.get(), serial.get())
+    db.update(selected_tuple[0], commodity.get(), quantity.get(), price.get(), serial.get())
 
 def search_item():
     listbox.delete(0,END)
-    for row in backend.search(commodity.get(), quantity.get(), price.get(), serial.get()):
+    for row in db.search(commodity.get(), quantity.get(), price.get(), serial.get()):
     # x.get method converts StringVar to string
         listbox.insert(END,row)
 
 def delete_item():
-    backend.delete(selected_tuple[0])
+    db.delete(selected_tuple[0])
 
 def get_selected_row(event):
     try:
